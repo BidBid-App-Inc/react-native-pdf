@@ -18,9 +18,6 @@ import {
     Image
 } from 'react-native';
 
-import { ProgressBar } from '@react-native-community/progress-bar-android'
-import { ProgressView } from '@react-native-community/progress-view'
-
 let RNFetchBlob;
 try {
     RNFetchBlob = require('rn-fetch-blob').default;
@@ -408,26 +405,7 @@ export default class Pdf extends Component {
         if (Platform.OS === "android" || Platform.OS === "ios" || Platform.OS === "windows") {
                 return (
                     <View style={[this.props.style,{overflow: 'hidden'}]}>
-                        {!this.state.isDownloaded?
-                            (<View
-                                style={styles.progressContainer}
-                            >
-                                {this.props.activityIndicator
-                                    ? this.props.activityIndicator
-                                    : Platform.OS === 'android'
-                                        ? <ProgressBar
-                                            progress={this.state.progress}
-                                            indeterminate={false}
-                                            styleAttr="Horizontal"
-                                            style={styles.progressBar}
-                                            {...this.props.activityIndicatorProps}
-                                        />
-                                        : <ProgressView
-                                            progress={this.state.progress}
-                                            style={styles.progressBar}
-                                            {...this.props.activityIndicatorProps}
-                                        />}
-                            </View>):(
+                        {!this.state.isDownloaded ? null : (
                                 Platform.OS === "android" || Platform.OS === "windows"?(
                                         <PdfCustom
                                             ref={component => (this._root = component)}
